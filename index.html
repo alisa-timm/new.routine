@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Routine</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+    <h1>New Routine</h1>
+</header>
+
+<main class="main-content">
+    <section class="challenge" aria-label="75 дней">
+        <div id="weeks-container"></div>
+    </section>
+</main>
+
+<div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="week-modal" role="dialog" aria-modal="true" aria-labelledby="week-title">
+        <button class="close-modal" id="close-modal" aria-label="Закрыть">×</button>
+
+        <h2 id="week-title">Неделя 1</h2>
+
+        <div class="week-tasks" id="week-tasks">
+            <label class="task">
+                <input type="checkbox" data-task="calories">
+                <span>Соблюдение дефицита (поддержания нормы) калорий</span>
+            </label>
+
+            <label class="task">
+                <input type="checkbox" data-task="reading">
+                <span>Чтение ста страниц книги</span>
+            </label>
+
+            <label class="task">
+                <input type="checkbox" data-task="programming">
+                <span>Два самостоятельных занятия изучения программирования</span>
+            </label>
+
+            <label class="task">
+                <input type="checkbox" data-task="strength">
+                <span>Четыре силовые тренировки + 1–2 кардио тренировки</span>
+            </label>
+
+            <label class="task">
+                <input type="checkbox" data-task="yoga">
+                <span>Утренняя йога/зарядка четыре раза в неделю</span>
+            </label>
+        </div>
+
+        <button class="complete-week" id="complete-week">
+            ✓ Отметить всю неделю
+        </button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

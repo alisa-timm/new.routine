@@ -1,0 +1,366 @@
+/* =========================
+   NEW ROUTINE
+   Цветовая палитра:
+   #25344f — тёмно-синий
+   #617891 — сине-серый
+   #d5b893 — бежевый
+   #6f4d38 — коричневый
+   #632024 — бордовый
+   ========================= */
+
+:root {
+    --navy: #25344f;
+    --blue: #617891;
+    --beige: #d5b893;
+    --brown: #6f4d38;
+    --burgundy: #632024;
+    --white: #f7f4ee;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--white);
+    color: var(--navy);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.site-header {
+    width: 100%;
+    padding: 34px 24px 28px;
+    text-align: center;
+    background: var(--navy);
+    border-bottom: 5px solid var(--brown);
+}
+
+.site-header h1 {
+    color: var(--beige);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+}
+
+.main-content {
+    width: min(1400px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 55px 0 80px;
+}
+
+.challenge {
+    width: 100%;
+}
+
+.week-row {
+    display: grid;
+    grid-template-columns: 1fr 52px;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 26px;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.day-card {
+    aspect-ratio: 1 / 1;
+    min-height: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--navy);
+    border-radius: 16px;
+    background: var(--blue);
+    color: var(--beige);
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.day-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--brown);
+}
+
+.day-card:active {
+    transform: translateY(0);
+}
+
+.day-card.day-complete {
+    background: var(--burgundy);
+}
+
+.day-number {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.week-arrow {
+    width: 52px;
+    height: 52px;
+    border: 3px solid var(--navy);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--navy);
+    font-size: 1.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.week-arrow:hover {
+    background: var(--navy);
+    color: var(--beige);
+    transform: translateX(3px);
+}
+
+/* Модальное окно */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(37, 52, 79, 0.72);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.week-modal {
+    position: relative;
+    width: min(620px, 100%);
+    max-height: min(720px, 90vh);
+    overflow-y: auto;
+    padding: 42px;
+    border: 4px solid var(--navy);
+    border-radius: 22px;
+    background: var(--beige);
+    box-shadow: 12px 12px 0 var(--brown);
+}
+
+.week-modal h2 {
+    margin-bottom: 30px;
+    color: var(--navy);
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 600;
+}
+
+.close-modal {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    border: 0;
+    background: transparent;
+    color: var(--navy);
+    font-size: 2.2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.week-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.task {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 17px 18px;
+    border: 2px solid var(--blue);
+    border-radius: 12px;
+    background: rgba(97, 120, 145, 0.13);
+    color: var(--navy);
+    font-size: 1.05rem;
+    line-height: 1.35;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.task:has(input:checked) {
+    background: rgba(99, 32, 36, 0.12);
+    border-color: var(--burgundy);
+}
+
+.task input {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    accent-color: var(--burgundy);
+    cursor: pointer;
+}
+
+.complete-week {
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px 20px;
+    border: 3px solid var(--navy);
+    border-radius: 12px;
+    background: var(--brown);
+    color: var(--white);
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.complete-week:hover {
+    background: var(--burgundy);
+    transform: translateY(-2px);
+}
+
+/* Последняя неполная неделя */
+
+.week-row.partial-week {
+    opacity: 0.98;
+}
+
+/* Планшет */
+
+@media (max-width: 900px) {
+    .main-content {
+        width: min(100% - 30px, 720px);
+        padding-top: 35px;
+    }
+
+    .days-grid {
+        gap: 10px;
+    }
+
+    .day-card {
+        min-height: 80px;
+        border-radius: 12px;
+    }
+
+    .week-row {
+        grid-template-columns: 1fr 44px;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .week-arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+}
+
+/* Телефон */
+
+@media (max-width: 600px) {
+    .site-header {
+        padding: 25px 16px 21px;
+    }
+
+    .main-content {
+        width: calc(100% - 20px);
+        padding: 25px 0 45px;
+    }
+
+    .days-grid {
+        gap: 6px;
+    }
+
+    .day-card {
+        min-height: 46px;
+        border-width: 2px;
+        border-radius: 9px;
+    }
+
+    .day-number {
+        font-size: clamp(1.25rem, 7vw, 2rem);
+    }
+
+    .week-row {
+        grid-template-columns: 1fr 36px;
+        gap: 7px;
+        margin-bottom: 14px;
+    }
+
+    .week-arrow {
+        width: 36px;
+        height: 36px;
+        border-width: 2px;
+        font-size: 1.1rem;
+    }
+
+    .week-modal {
+        padding: 35px 18px 22px;
+        border-width: 3px;
+        border-radius: 16px;
+        box-shadow: 6px 6px 0 var(--brown);
+    }
+
+    .task {
+        padding: 13px 12px;
+        gap: 10px;
+        font-size: 0.92rem;
+    }
+
+    .task input {
+        width: 19px;
+        height: 19px;
+    }
+
+    .complete-week {
+        margin-top: 22px;
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Очень маленькие экраны */
+
+@media (max-width: 380px) {
+    .main-content {
+        width: calc(100% - 12px);
+    }
+
+    .days-grid {
+        gap: 4px;
+    }
+
+    .day-card {
+        min-height: 40px;
+        border-radius: 7px;
+    }
+
+    .week-row {
+        grid-template-columns: 1fr 32px;
+        gap: 5px;
+    }
+
+    .week-arrow {
+        width: 32px;
+        height: 32px;
+    }
+}
